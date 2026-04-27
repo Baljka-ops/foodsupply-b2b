@@ -1,0 +1,29 @@
+{
+  "name": "b2b",
+  "version": "1.0.0",
+  "main": "server/src/index.js",
+  "scripts": {
+    "start:api": "node server/src/index.js",
+    "dev:api": "nodemon server/src/index.js",
+    "check:frontend": "node --check script.js",
+    "check:api": "node --check server/src/index.js && node --check server/src/app.js && node --check server/src/config.js && node --check server/src/db.js && node --check server/src/bootstrap/ensureSystemUsers.js && node --check server/src/models/CommissionStatement.js && node --check server/src/models/User.js && node --check server/src/routes/auth.routes.js && node --check server/src/routes/admin.routes.js && node --check server/src/routes/state.routes.js && node --check server/src/routes/payments.routes.js && node --check server/src/routes/commissions.routes.js && node --check server/src/utils/auth.js && node --check server/src/utils/http.js && node --check server/src/utils/validation.js && node --check server/src/utils/accessControl.js && node --check server/src/utils/verificationAudit.js && node --check server/src/utils/orderState.js && node --check server/src/utils/rateLimit.js && node --check server/src/utils/roleStateAccess.js && node --check server/src/utils/sanitizeState.js && node --check server/src/utils/stateStore.js && node --check server/src/utils/qpayClient.js && node --check server/src/utils/bylmnClient.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "smoke:api": "node scripts/smoke-api.mjs",
+    "test": "npm run check:frontend && npm run check:api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mongoose": "^9.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^10.2.0",
+    "nodemon": "^3.1.14"
+  }
+}

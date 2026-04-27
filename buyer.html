@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodSupply | ЖДБ</title>
+  <meta name="description" content="FoodSupply B2B платформ: бизнес хэрэглэгч ба ханган нийлүүлэгчийн захиалга, нөөц, төлбөр, хяналтыг нэг цонхоор удирдах вэб систем.">
+  <meta name="theme-color" content="#166534">
+  <link rel="icon" type="image/svg+xml" href="assets/foodsupply-logo.svg">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=Noto+Sans+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260427-home-clean-v2">
+</head>
+<body data-portal="buyer">
+  <a class="skip-link" href="#mainContent">Үндсэн контент руу алгасах</a>
+  <div class="page-glow glow-a" aria-hidden="true"></div>
+  <div class="page-glow glow-b" aria-hidden="true"></div>
+
+  <main id="mainContent">
+    <section id="authView" class="auth-layout hidden" role="dialog" aria-modal="true" aria-labelledby="authTitle" aria-hidden="true">
+      <div class="auth-card auth-card-advanced">
+        <button id="closeAuthBtn" class="auth-close" type="button" aria-label="Close">&times;</button>
+
+        <div class="auth-headline">
+          <img class="auth-brand-logo" src="assets/foodsupply-logo.svg" alt="FoodSupply logo">
+          <h3 id="authTitle">Нэвтрэх</h3>
+        </div>
+
+        <form id="authForm" class="auth-form auth-form-advanced">
+          <input id="roleInput" type="hidden" name="role" value="buyer">
+
+          <label class="auth-section-label">Та ямар хэрэглэгч вэ?</label>
+          <div id="authRoleCards" class="auth-role-grid auth-role-grid-2">
+            <button class="role-card active" type="button" data-role-card="buyer" aria-pressed="true">
+              <span class="role-icon">🏪</span>
+              <span class="role-title">Бизнес эрхлэгч</span>
+              <span class="role-sub">Ресторан, кафе, дэлгүүр</span>
+            </button>
+            <button class="role-card" type="button" data-role-card="supplier" aria-pressed="false">
+              <span class="role-icon">🚚</span>
+              <span class="role-title">Ханган нийлүүлэгч</span>
+              <span class="role-sub">Бүтээгдэхүүн борлуулагч</span>
+            </button>
+          </div>
+
+          <div id="authLoginFields" class="auth-mode-fields">
+            <div class="field-block">
+              <label for="loginEmailInput">И-мэйл хаяг</label>
+              <input id="loginEmailInput" name="loginEmail" type="email" placeholder="buyer@foodsupply.mn" autocomplete="email" required>
+            </div>
+            <div class="field-block">
+              <label for="loginPasswordInput">Нууц үг</label>
+              <input id="loginPasswordInput" name="loginPassword" type="password" placeholder="********" autocomplete="current-password" minlength="8" required>
+            </div>
+            <div class="auth-inline-row">
+              <label class="check-row"><input id="rememberLoginInput" type="checkbox"> Намайг сана</label>
+              <button class="link-btn" id="forgotPasswordBtn" type="button">Нууц үг мартсан?</button>
+            </div>
+          </div>
+
+          <div id="authRegisterFields" class="auth-mode-fields hidden">
+            <div class="field-grid two-col">
+              <div class="field-block">
+                <label for="registerCompanyInput">Байгууллагын нэр *</label>
+                <input id="registerCompanyInput" name="company" type="text" placeholder="Жишээ: Улаанбаатар Ресторан" autocomplete="organization" required>
+              </div>
+              <div class="field-block">
+                <label for="registerContactInput">Холбоо барих хүн *</label>
+                <input id="registerContactInput" name="contactName" type="text" placeholder="Таны нэр" autocomplete="name" required>
+              </div>
+              <div class="field-block">
+                <label for="registerEmailInput">И-мэйл хаяг *</label>
+                <input id="registerEmailInput" name="email" type="email" placeholder="name@company.mn" autocomplete="email" required>
+              </div>
+              <div class="field-block">
+                <label for="registerPhoneInput">Утасны дугаар *</label>
+                <input id="registerPhoneInput" name="phone" type="tel" inputmode="numeric" pattern="[0-9]{8}" placeholder="99001122" autocomplete="tel" required>
+              </div>
+            </div>
+
+            <div class="field-block">
+              <label for="registerAddressInput">Хаяг *</label>
+              <input id="registerAddressInput" name="address" type="text" placeholder="Дүүрэг, хороо, байр" autocomplete="street-address" required>
+            </div>
+            <section id="supplierRegisterFields" class="supplier-register-fields hidden" aria-hidden="true">
+              <div class="field-grid two-col">
+                <div class="field-block">
+                  <label for="registerNumberInput">Регистрийн дугаар *</label>
+                  <input id="registerNumberInput" name="registerNumber" type="text" placeholder="1234567" autocomplete="off" required>
+                </div>
+                <div class="field-block">
+                  <label for="registerContactPersonPhoneInput">Холбоо барих утас *</label>
+                  <input id="registerContactPersonPhoneInput" name="contactPersonPhone" type="tel" inputmode="numeric" pattern="[0-9]{8}" placeholder="99001122" autocomplete="tel" required>
+                </div>
+              </div>
+              <div class="field-block">
+                <label for="registerContactPersonEmailInput">Холбоо барих и-мэйл *</label>
+                <input id="registerContactPersonEmailInput" name="contactPersonEmail" type="email" placeholder="contact@company.mn" autocomplete="email" required>
+              </div>
+              <div class="supplier-register-head">
+                <strong>Нийлүүлэгчийн төлбөрийн мэдээлэл</strong>
+                <span>Худалдан авагчийн төлбөр нийлүүлэгчийн данс руу шилжих урсгалд ашиглагдана.</span>
+              </div>
+              <div class="field-grid two-col">
+                <div class="field-block">
+                  <label for="registerBankNameInput">Банкны нэр *</label>
+                  <input id="registerBankNameInput" name="bankName" type="text" placeholder="Жишээ: Хаан Банк">
+                </div>
+                <div class="field-block">
+                  <label for="registerBankHolderInput">Дансны нэр *</label>
+                  <input id="registerBankHolderInput" name="bankAccountName" type="text" placeholder="Байгууллагын нэр">
+                </div>
+              </div>
+              <div class="field-block">
+                <label for="registerBankAccountInput">Дансны дугаар *</label>
+                <input id="registerBankAccountInput" name="bankAccountNumber" type="text" inputmode="numeric" placeholder="5000004321">
+              </div>
+              <div class="field-block">
+                <label for="registerQPayReceiverInput">QPay хүлээн авагч код</label>
+                <input id="registerQPayReceiverInput" name="qpayReceiverCode" type="text" placeholder="merchant_receiver_code">
+                <p class="field-note">Нийлүүлэгчийн QPay хүлээн авагч код.</p>
+              </div>
+              <div class="field-block">
+                <label for="registerBankAccountForBylnInput">Банкны дансны дугаар (Был.mn төлбөр)</label>
+                <input id="registerBankAccountForBylnInput" name="bankAccount" type="text" inputmode="numeric" placeholder="1234567890">
+                <p class="field-note">Худалдан авагчийн Был.mn QR төлбөрөөр төлөлтийн хэрэгцээг энэ дансанд оруулна.</p>
+              </div>
+              <div class="supplier-agreement-box">
+                <h4>Нийлүүлэгчийн гэрээ, нөхцөл</h4>
+                <ul class="supplier-agreement-list">
+                  <li>Захиалга баталгаажсаны дараа төлбөр нийлүүлэгчийн бүртгүүлсэн данс руу шилжих суурь мэдээлэл болно.</li>
+                  <li>Нийлүүлэгч дансны мэдээллээ үнэн зөв, шинэчилсэн байдлаар хадгалах үүрэгтэй.</li>
+                  <li>Платформын шимтгэл сар бүр тайлан болон нэхэмжлэлээр тусдаа тооцогдоно.</li>
+                  <li>Хүргэлт, барааны баримт, татварын шаардлагыг нийлүүлэгч өөрөө хариуцна.</li>
+                </ul>
+              </div>
+              <label class="check-row terms-row supplier-terms-row">
+                <input id="registerSupplierAgreementInput" name="acceptSupplierAgreement" type="checkbox">
+                Нийлүүлэгчийн гэрээ болон төлбөр шилжүүлгийн нөхцөлийг зөвшөөрч байна
+              </label>
+            </section>
+
+            <div class="field-grid two-col">
+              <div class="field-block">
+                <label for="registerBusinessTypeInput">Бизнесийн төрөл *</label>
+                <select id="registerBusinessTypeInput" name="businessType" required>
+                  <option value="">Сонгох</option>
+                  <option value="restaurant">Ресторан</option>
+                  <option value="cafe">Кафе</option>
+                  <option value="store">Дэлгүүр</option>
+                  <option value="wholesale">Бөөний төв</option>
+                </select>
+              </div>
+              <div class="field-block"></div>
+              <div class="field-block">
+                <label for="registerPasswordInput">Нууц үг *</label>
+                <input id="registerPasswordInput" name="password" type="password" placeholder="********" autocomplete="new-password" minlength="8" required>
+              </div>
+              <div class="field-block">
+                <label for="registerPasswordConfirmInput">Нууц үг давтах *</label>
+                <input id="registerPasswordConfirmInput" name="confirmPassword" type="password" placeholder="********" autocomplete="new-password" minlength="8" required>
+              </div>
+            </div>
+
+            <label class="check-row terms-row">
+              <input id="registerTermsInput" name="acceptTerms" type="checkbox" required>
+              Би үйлчилгээний нөхцөл болон нууцлалын бодлоготой танилцаж зөвшөөрч байна
+            </label>
+          </div>
+
+          <button id="authSubmitBtn" class="btn btn-primary auth-submit" type="submit">Нэвтрэх</button>
+
+          <p class="auth-switch-row">
+            <span id="authSwitchHint">Бүртгэлгүй юу?</span>
+            <button id="toggleAuthModeBtn" class="link-btn" type="button">Бүртгүүлэх</button>
+          </p>
+        </form>
+
+      </div>
+    </section>
+
+    <section id="buyerView">
+      <header class="buyer-header">
+        <div class="buyer-topline">
+          <div class="wrap">
+            <div class="topline-left">
+              <span>☎ 7710-0100</span>
+              <span>✉ info@foodsupply.mn</span>
+            </div>
+            <span class="topline-note">Бизнес хоорондын хүнсний бараа татан авалтын платформ</span>
+          </div>
+        </div>
+        <div class="buyer-mainbar">
+          <div class="wrap bar-grid">
+            <div class="logo-block">
+              <img class="brand-logo" src="assets/foodsupply-logo.svg" alt="" aria-hidden="true">
+              <div class="brand-copy">
+                <h2>FoodSupply</h2>
+                <p>B2B Marketplace</p>
+              </div>
+            </div>
+            <div class="search-block">
+              <input id="productSearch" type="search" placeholder="Бараа, ангилал, нийлүүлэгч хайх..." aria-label="Бараа, ангилал, нийлүүлэгч хайх">
+            </div>
+            <div class="action-block">
+              <span id="marketSessionBadge" class="market-session-badge">ЖДБ</span>
+              <button id="openProfileBtn" class="btn btn-light toolbar-icon-btn hidden" type="button" aria-label="Профайл" title="Профайл">
+                <span class="toolbar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M12 12a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Zm0 2.25c-4.68 0-8.5 2.82-8.5 6.25 0 .41.34.75.75.75h15.5c.41 0 .75-.34.75-.75 0-3.43-3.82-6.25-8.5-6.25Z" fill="currentColor"/>
+                  </svg>
+                </span>
+              </button>
+              <div id="notificationMenu" class="notification-menu hidden">
+                <button id="notificationToggleBtn" class="btn btn-light toolbar-icon-btn notification-btn" type="button" aria-label="Мэдэгдэл" title="Мэдэгдэл" aria-haspopup="true" aria-expanded="false" aria-controls="notificationPanel">
+                  <span class="notification-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path d="M12 3a4 4 0 0 0-4 4v1.12c0 .78-.2 1.55-.58 2.24L6.1 12.75A3 3 0 0 0 8.7 17h6.6a3 3 0 0 0 2.6-4.25l-1.32-2.39A4.7 4.7 0 0 1 16 8.12V7a4 4 0 0 0-4-4Zm0 19a2.7 2.7 0 0 1-2.45-1.56h4.9A2.7 2.7 0 0 1 12 22Z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                  <span id="notificationCount" class="count-badge hidden">0</span>
+                </button>
+                <div id="notificationPanel" class="notification-panel hidden" role="dialog" aria-label="Мэдэгдэл" aria-hidden="true">
+                  <div class="notification-panel-head">
+                    <div>
+                      <strong>Мэдэгдэл</strong>
+                      <p id="notificationSummary" class="muted">Сүүлийн өөрчлөлтүүд энд харагдана.</p>
+                    </div>
+                    <button id="markNotificationsReadBtn" class="link-btn" type="button">Уншсан болгох</button>
+                  </div>
+                  <div id="notificationList" class="notification-list"></div>
+                </div>
+              </div>
+<button id="openLoginBtn" class="btn btn-light" type="button">Нэвтрэх</button>
+              <button id="openRegisterBtn" class="btn btn-primary" type="button">Бүртгүүлэх</button>
+              <button id="openCartBtn" class="btn btn-light toolbar-icon-btn cart-btn" type="button" aria-controls="cartDrawer" aria-expanded="false" aria-label="Сагс" title="Сагс">
+                <span class="toolbar-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="20" r="1.6"></circle>
+                    <circle cx="18" cy="20" r="1.6"></circle>
+                    <path d="M3 4h2.2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L21 7H7"></path>
+                  </svg>
+                </span>
+                <span id="cartCount" class="count-badge">0</span>
+              </button>
+              <button id="logoutMarketBtn" class="btn btn-light" type="button">Гарах</button>
+            </div>
+          </div>
+        </div>
+        <div class="buyer-categories">
+          <div class="wrap" id="categoryNav"></div>
+        </div>
+      </header>
+
+      <section class="buyer-hero">
+        <div class="hero-overlay"></div>
+        <div class="wrap hero-content hero-saas-layout">
+          <div class="hero-copy hero-copy-panel">
+            <h3>
+              <span class="hero-title-strong">БАРАА ТАТАН АВАЛТЫГ</span>
+              <span class="hero-title-accent">ХЯЛБАР, ХУРДАН</span>
+              ШИЙДНЭ
+            </h3>
+            <p class="hero-subline">Жижиг дунд бизнесийн бараа захиалгыг нэг дороос удирдана.</p>
+            <div class="hero-cta-row">
+              <button class="btn btn-primary hero-cta-primary" type="button" data-action="scroll-products">ЗАХИАЛГА ХИЙХ</button>
+              <a class="btn btn-light hero-cta-secondary" href="#homeDiscovery">ТАНИЛЦАХ</a>
+            </div>
+            <div class="hero-feature-grid" aria-label="Платформын үндсэн боломжууд">
+              <article class="hero-feature-card">
+                <span class="hero-feature-icon hero-feature-icon--order" aria-hidden="true"></span>
+                <div>
+                  <strong>Шууд захиалга</strong>
+                  <span>Хайлт, сагс, захиалга нэг урсгалд.</span>
+                </div>
+              </article>
+              <article class="hero-feature-card">
+                <span class="hero-feature-icon hero-feature-icon--payment" aria-hidden="true"></span>
+                <div>
+                  <strong>Төлбөрийн хяналт</strong>
+                  <span>QPay, баталгаа, шилжүүлгийг төвлөрүүлнэ.</span>
+                </div>
+              </article>
+              <article class="hero-feature-card">
+                <span class="hero-feature-icon hero-feature-icon--stock" aria-hidden="true"></span>
+                <div>
+                  <strong>Бодит үлдэгдэл</strong>
+                  <span>Нөөц, үнэ, хүргэлтийн мэдээлэл шууд шинэчлэгдэнэ.</span>
+                </div>
+              </article>
+            </div>
+          </div>
+          <aside class="hero-dashboard-card" aria-label="Платформын хяналтын самбар">
+            <div class="hero-dashboard-top">
+              <div>
+                <h4>Өнөөдрийн хяналт</h4>
+              </div>
+              <span id="heroDashboardBadge" class="hero-dashboard-badge">0</span>
+            </div>
+            <div class="hero-dashboard-grid">
+              <article class="hero-stat-card">
+                <span class="dashboard-icon dashboard-icon--products" aria-hidden="true"></span>
+                <div>
+                  <strong id="statProducts">0</strong>
+                  <span>Нийт бараа</span>
+                </div>
+              </article>
+              <article class="hero-stat-card">
+                <span class="dashboard-icon dashboard-icon--suppliers" aria-hidden="true"></span>
+                <div>
+                  <strong id="statSuppliers">0</strong>
+                  <span>Нийлүүлэгч</span>
+                </div>
+              </article>
+              <article class="hero-stat-card">
+                <span class="dashboard-icon dashboard-icon--orders" aria-hidden="true"></span>
+                <div>
+                  <strong id="statOrders">0</strong>
+                  <span>Нийт захиалга</span>
+                </div>
+              </article>
+              <article class="hero-stat-card">
+                <span class="dashboard-icon dashboard-icon--pending" aria-hidden="true"></span>
+                <div>
+                  <strong id="statPendingOrders">0</strong>
+                  <span>Шинэ захиалга</span>
+                </div>
+              </article>
+            </div>
+            <div class="hero-mini-chart" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="guestShowcase" class="wrap guest-showcase">
+        <div class="value-grid">
+          <article class="value-card">
+            <span class="value-kicker">Ухаалаг бүрдүүлэлт</span>
+            <h4>Нэг цонхоор захиалга</h4>
+            <p>Нийлүүлэгч, үнэ, үлдэгдлийг зэрэг харж хурдан шийдвэр гарга.</p>
+          </article>
+          <article class="value-card">
+            <span class="value-kicker">Бодит цагийн хяналт</span>
+            <h4>Төлөв хяналт</h4>
+            <p>Захиалгын төлөв, төлбөр, хүргэлтийг нэг самбараас удирд.</p>
+          </article>
+          <article class="value-card">
+            <span class="value-kicker">Бөөний чиглэл</span>
+            <h4>Бөөний хэрэгцээнд</h4>
+            <p>Мин. захиалга, нөөцийн удирдлага, нийлүүлэгчийн урсгал бүгд бэлэн.</p>
+          </article>
+        </div>
+        <div class="trust-strip">
+          <article><strong>24/7</strong><span>Тусламж</span></article>
+          <article><strong>+120</strong><span>Бизнес хэрэглэгч</span></article>
+          <article><strong>99.9%</strong><span>Өгөгдлийн аюулгүй байдал</span></article>
+        </div>
+      </section>
+      <section class="wrap platform-entry-section">
+        <article class="entry-card">
+          <span class="section-kicker">Худалдан авагч</span>
+          <h4>Шуурхай худалдан авалтын урсгал</h4>
+          <p>Категори, нийлүүлэгч, үлдэгдлээр шүүж сагсаа бүрдүүлээд төлбөр, захиалгын төлөвөө нэг самбараас хяална.</p>
+        </article>
+        <article class="entry-card">
+          <span class="section-kicker">Нийлүүлэгч</span>
+          <h4>Баталгаажуулалттай борлуулалтын суваг</h4>
+          <p>Админы шалгалтын дараа бараа, нөөц, захиалга, төлбөрийн мэдээллээ илүү цэгцтэйгээр удирдах боломжтой.</p>
+        </article>
+      </section>
+      <section class="wrap workflow-section">
+        <div class="section-head section-head--split">
+          <div>
+            <span class="section-kicker">Хэрхэн ажиллах вэ</span>
+            <h4>3 алхамт B2B урсгал</h4>
+          </div>
+          <span class="panel-pill">Нэг систем</span>
+        </div>
+        <div class="workflow-grid">
+          <article class="workflow-card">
+            <strong>1. Бүртгэл ба баталгаажуулалт</strong>
+            <p>Buyer эсвэл supplier эрхээр бүртгүүлж, supplier тал админы шалгалтаар баталгаажна.</p>
+          </article>
+          <article class="workflow-card">
+            <strong>2. Захиалга ба төлбөр</strong>
+            <p>Buyer тал бүтээгдэхүүн сонгож захиалга үүсгэнэ. Төлбөрийн урсгал платформ дээрээс хянагдана.</p>
+          </article>
+          <article class="workflow-card">
+            <strong>3. Хүргэлт ба хаалт</strong>
+            <p>Нийлүүлэгч захиалга хүлээн авч хүргэлтийн төлөвөө шинэчилнэ. Хүлээн авалт баталгаажмагц цикл дуусна.</p>
+          </article>
+        </div>
+      </section>
+      <section class="wrap cta-banner-section">
+        <div class="cta-banner-panel">
+          <div>
+            <span class="section-kicker">FoodSupply Platform</span>
+            <h4>Бараа, захиалга, баталгаажуулалтыг нэг интерфэйсээс удирд</h4>
+            <p>B2B хүнсний худалдан авалт болон ханган нийлүүлэлтийн өдөр тутмын урсгалыг илүү цэгцтэй болгоно.</p>
+          </div>
+          <button class="btn btn-primary" type="button" data-action="scroll-products">Бараа үзэх</button>
+        </div>
+      </section>
+      <section id="homeDiscovery" class="wrap home-discovery">
+        <div class="home-discovery-main">
+          <div class="section-head section-head--split">
+            <div>
+              <span class="section-kicker">Онцлох бараа</span>
+              <h4>Эрэлттэй бараа</h4>
+              <p>Үлдэгдэл сайн, тогтвортой нийлүүлэлттэй барааг эндээс шууд сонгоно.</p>
+            </div>
+            <button class="btn btn-light" type="button" data-action="scroll-products">Бүх бараа үзэх</button>
+          </div>
+          <div id="spotlightCategories" class="spotlight-categories"></div>
+          <div id="featuredProductsSection" class="featured-products-grid"></div>
+        </div>
+        <div class="home-side-rail">
+          <aside id="faqSection" class="faq-panel" aria-labelledby="faqTitle">
+            <div class="section-head">
+              <span class="section-kicker">Түгээмэл асуулт</span>
+              <h4 id="faqTitle">Хэрэглэгчид хамгийн их асуудаг зүйлс</h4>
+              <p>Эхний захиалга, төлбөр, хүргэлтийн хамгийн хэрэгтэй товч хариултууд.</p>
+            </div>
+            <div class="faq-list">
+              <details class="faq-item" open>
+                <summary>Захиалга өгсний дараа нийлүүлэгчтэй яаж холбогдох вэ?</summary>
+                <p>Захиалга үүсмэгц нийлүүлэгчийн самбарт шууд орж, төлөв шинэчлэгдэнэ. Баталгаажсаны дараа хүргэлт, төлбөрийн явцыг хянаж болно.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Төлбөрийг яг хэзээ хийх вэ?</summary>
+                <p>ЖДБ тал сагснаасаа захиалга үүсгээд QPay эсвэл идэвхжүүлсэн төлбөрийн аргаар төлнө. Төлбөрийн мэдээлэл баталгаажмагц нийлүүлэгч талд шууд харагдана.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Нөөцийн мэдээлэл бодит цаг дээр шинэчлэгдэх үү?</summary>
+                <p>Тийм. Нийлүүлэгч бараа, үлдэгдэл, үнэ шинэчлэхэд худалдан авагч талын marketplace дээр шууд шинэчлэгдэж харагдана.</p>
+              </details>
+              <details class="faq-item">
+                <summary>Мин. захиалгаас бага тоо оруулах боломжтой юу?</summary>
+                <p>Боломжгүй. Сагс болон quantity control нь тухайн барааны хамгийн бага захиалгын хэмжээг баримталж ажиллана.</p>
+              </details>
+            </div>
+          </aside>
+          <aside id="buyerRewardPanel" class="faq-panel reward-summary-panel hidden" aria-labelledby="buyerRewardTitle">
+            <div class="section-head">
+              <span class="section-kicker">Бонус урамшуулал</span>
+              <h4 id="buyerRewardTitle">Бонусын тойм</h4>
+              <p id="buyerRewardHint">Checkout дээр бонус болон купон кодоо ашиглаад захиалгын дүнгээ бууруулна.</p>
+            </div>
+            <div class="reward-summary-grid">
+              <article class="reward-summary-card">
+                <span>Одоогийн үлдэгдэл</span>
+                <strong id="buyerRewardPoints">0 ₮</strong>
+              </article>
+              <article class="reward-summary-card">
+                <span>Нийт цуглуулсан</span>
+                <strong id="buyerRewardTotalEarned">0 оноо</strong>
+              </article>
+              <article class="reward-summary-card">
+                <span>Нийт ашигласан</span>
+                <strong id="buyerRewardTotalUsed">0 оноо</strong>
+              </article>
+            </div>
+            <div class="reward-helper-list">
+              <span>1 бонус = 1₮</span>
+              <span>Бонус оноо зөвхөн амжилттай дууссан захиалгад бодогдоно.</span>
+            </div>
+          </aside>
+          <aside id="buyerOrdersPanel" class="faq-panel order-manager-panel hidden" aria-labelledby="buyerOrdersTitle">
+            <div class="section-head">
+              <span class="section-kicker">Захиалга удирдлага</span>
+              <h4 id="buyerOrdersTitle">Идэвхтэй захиалгууд</h4>
+              <p>Шинэ захиалгаа засах, устгах, төлөх үйлдлийг эндээс хийнэ.</p>
+            </div>
+            <div id="buyerOrdersList" class="stack order-manager-list"></div>
+          </aside>
+          <section id="supplierTopPanel" class="panel supplier-side-panel hidden">
+        <div class="panel-head">
+          <h4>Таны бараанууд (Нийлүүлэгч)</h4>
+          <button id="openAddProductFromPanelBtn" class="btn btn-primary" type="button">Шинэ бараа нэмэх</button>
+        </div>
+        <div id="supplierVerificationBanner" class="supplier-verification-banner hidden" aria-live="polite"></div>
+        <div id="supplierInlineProducts" class="stack"></div>
+        <div class="panel-head supplier-order-head">
+          <h4>Таны орж ирсэн захиалгууд</h4>
+        </div>
+        <div id="supplierInlineOrders" class="stack"></div>
+      </section>
+        </div>
+      </section>
+      
+
+      <section class="wrap marketplace">
+        <div id="productSections"></div>
+      </section>
+
+      <footer class="buyer-footer modern-footer">
+        <div class="wrap">
+          <div class="footer-content">
+            <!-- Left Section: Logo & Description -->
+            <div class="footer-section footer-brand">
+              <div class="footer-logo-container">
+                <h3 class="footer-brand-title">FoodSupply</h3>
+                <p class="footer-subtitle">Нийлүүлэгч ба жижиглэн худалдааг холбосон B2B платформ</p>
+              </div>
+              <div class="footer-social">
+                <a href="#" class="social-icon" aria-label="Facebook" title="Facebook">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <a href="#" class="social-icon" aria-label="Instagram" title="Instagram">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m5.521 17.9c-3.887 3.887-10.156 3.887-14.043 0-3.887-3.887-3.887-10.156 0-14.043 3.887-3.887 10.156-3.887 14.043 0 3.887 3.887 3.887 10.156 0 14.043M12 5.5c-3.584 0-6.5 2.916-6.5 6.5s2.916 6.5 6.5 6.5 6.5-2.916 6.5-6.5-2.916-6.5-6.5-6.5m0 10.5c-2.481 0-4.5-2.019-4.5-4.5s2.019-4.5 4.5-4.5 4.5 2.019 4.5 4.5-2.019 4.5-4.5 4.5m7-11c-.828 0-1.5-.672-1.5-1.5s.672-1.5 1.5-1.5 1.5.672 1.5 1.5-.672-1.5-1.5-1.5"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Middle Section: Categories -->
+            <div class="footer-section footer-categories">
+              <h5 class="footer-section-title">КАТЕГОРИ</h5>
+              <ul id="footerCategories" class="footer-links"></ul>
+            </div>
+
+            <!-- Right Section: Contact Info -->
+            <div class="footer-section footer-contact">
+              <h5 class="footer-section-title">ХОЛБОО БАРИХ</h5>
+              <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <p>Улаанбаатар хот</p>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">📞</span>
+                <p><a href="tel:+976771010100">7710-0100</a></p>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">✉️</span>
+                <p><a href="mailto:info@foodsupply.mn">info@foodsupply.mn</a></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="footer-divider"></div>
+
+          <!-- Bottom Bar -->
+          <div class="footer-bottom">
+            <p class="footer-copyright">&copy; 2024 FoodSupply. Бүх эрх хуулиар хамгаалагдсан.</p>
+            <div class="footer-legal-links">
+              <a href="#" class="legal-link">Нийтийн нөхцөл</a>
+              <span class="link-separator">•</span>
+              <a href="#" class="legal-link">Нууцлалын бодлого</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div id="cartOverlay" class="cart-overlay hidden"></div>
+      <aside id="cartDrawer" class="cart-drawer hidden" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle" aria-hidden="true">
+        <header class="drawer-head">
+          <div>
+            <h4 id="cartDrawerTitle">Захиалгын сагс</h4>
+            <p id="drawerItemCount">0 бараа</p>
+          </div>
+          <button id="closeCartBtn" class="btn btn-light" type="button">Хаах</button>
+        </header>
+        <div id="cartItems" class="drawer-body"></div>
+        <footer class="drawer-foot">
+          <div class="sum-row"><span>Дүн</span><strong id="cartSubtotal">0 ₮</strong></div>
+          <div class="sum-row"><span>Хүргэлт</span><strong id="cartDelivery">0 ₮</strong></div>
+          <div class="reward-panel">
+            <div class="sum-row"><span>Бонус үлдэгдэл</span><strong id="cartRewardBalance">0 ₮</strong></div>
+            <label class="checkout-field-label" for="cartCouponInput">Купон код</label>
+            <div class="checkout-inline-row">
+              <input id="cartCouponInput" type="text" placeholder="Ж: SAVE5000" autocomplete="off">
+              <button id="applyCouponBtn" class="btn btn-light" type="button">Хэрэглэх</button>
+            </div>
+            <p id="cartCouponStatus" class="muted checkout-status-note">Промо кодыг энд шалгаж хэрэглэнэ.</p>
+            <p class="checkout-helper-copy">Промо код нь хүчинтэй хугацаа болон доод үнийн нөхцөлтэй байж болно.</p>
+            <label class="checkout-field-label" for="cartPointsInput">Бонус ашиглах</label>
+            <div class="checkout-inline-row">
+              <input id="cartPointsInput" type="number" min="0" step="100" placeholder="0">
+              <button id="useMaxPointsBtn" class="btn btn-light" type="button">Бүгд</button>
+            </div>
+            <p id="cartPointsStatus" class="muted checkout-status-note">Ашигласан бонус нь захиалгын дүнгээс хасагдана.</p>
+            <div class="checkout-helper-list">
+              <span>Таны ашиглах бонус үлдэгдлээс хэтрэхгүй.</span>
+              <span>Ашигласан бонус нь захиалгын дүнгээс хасагдана.</span>
+              <span>Бонус оноо зөвхөн амжилттай захиалгад нэмэгдэнэ.</span>
+            </div>
+            <div class="checkout-section-block">
+              <div class="checkout-section-head">
+                <strong>Хүлээн авах хугацаа</strong>
+                <p class="checkout-helper-copy">Захиалгаа авах өдөр, цагийн интервалыг сонгоно уу.</p>
+              </div>
+              <div class="checkout-two-col">
+                <div class="field-block">
+                  <label class="checkout-field-label" for="cartPickupDateInput">Хүлээн авах огноо</label>
+                  <input id="cartPickupDateInput" type="date">
+                </div>
+                <div class="field-block">
+                  <label class="checkout-field-label" for="cartPickupTimeSlotInput">Хүлээн авах цаг</label>
+                  <select id="cartPickupTimeSlotInput">
+                    <option value="">Сонгох</option>
+                    <option value="09:00–12:00">09:00–12:00</option>
+                    <option value="12:00–15:00">12:00–15:00</option>
+                    <option value="15:00–18:00">15:00–18:00</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-block">
+                <label class="checkout-field-label" for="cartPickupNoteInput">Нэмэлт тайлбар</label>
+                <textarea id="cartPickupNoteInput" rows="2" placeholder="Ж: Үүдний харуул дээр үлдээнэ үү"></textarea>
+              </div>
+            </div>
+            <div class="checkout-section-block">
+              <div class="checkout-section-head">
+                <strong>Хаяг, байршлын мэдээлэл</strong>
+              </div>
+              <div class="field-block">
+                <label class="checkout-field-label" for="cartDeliveryAddressInput">Хаяг</label>
+                <textarea id="cartDeliveryAddressInput" rows="2" placeholder="Хүргэх эсвэл татан авах хаягаа оруулна уу"></textarea>
+              </div>
+              <div class="checkout-two-col">
+                <div class="field-block">
+                  <label class="checkout-field-label" for="cartContactPhoneInput">Холбоо барих утас</label>
+                  <input id="cartContactPhoneInput" type="tel" inputmode="tel" placeholder="Ж: 99112233">
+                </div>
+                <div class="field-block">
+                  <label class="checkout-field-label" for="cartMapUrlInput">Газрын зураг (сонголтоор)</label>
+                  <input id="cartMapUrlInput" type="url" placeholder="https://maps.google.com/...">
+                </div>
+              </div>
+              <div class="field-block">
+                <label class="checkout-field-label" for="cartLocationNoteInput">Байршлын тайлбар</label>
+                <textarea id="cartLocationNoteInput" rows="2" placeholder="Ж: Агуулахын хойд хаалга, 2-р орц"></textarea>
+              </div>
+              <input id="cartLatitudeInput" type="hidden">
+              <input id="cartLongitudeInput" type="hidden">
+            </div>
+          </div>
+          <div class="sum-row"><span>Купон хөнгөлөлт</span><strong id="cartDiscount">0 ₮</strong></div>
+          <div class="sum-row"><span>Бонус ашиглалт</span><strong id="cartUsedPoints">0 ₮</strong></div>
+          <div class="sum-row"><span>Цуглах бонус</span><strong id="cartEarnedPoints">0 оноо</strong></div>
+          <div class="sum-row"><span>Веб шимтгэл (8%)</span><strong id="cartPlatformFee">0 ₮</strong></div>
+          <div class="sum-row"><span>Нийлүүлэгч рүү шилжих</span><strong id="cartSupplierPayout">0 ₮</strong></div>
+          <div class="sum-row total"><span>Нийт</span><strong id="cartTotal">0 ₮</strong></div>
+          <p id="cartFlowHint" class="muted">Төлбөр эхлээд платформ дээр орж, хүргэлт баталгаажсаны дараа нийлүүлэгч рүү шилжинэ.</p>
+          <button id="checkoutBtn" class="btn btn-primary block" type="button">Төлбөр төлж захиалах</button>
+        </footer>
+      </aside>
+    </section>
+    <section id="adminView" class="hidden">
+      <div class="admin-shell">
+        <aside class="admin-sidebar">
+          <div class="admin-brand">
+            <span class="admin-brand-mark" aria-hidden="true"><img src="assets/foodsupply-logo.svg" alt=""></span>
+            <div>
+              <h3>FoodSupply</h3>
+              <p>Админ удирдлага</p>
+            </div>
+          </div>
+
+          <div class="admin-session">
+            <p id="adminSessionLabel">Системийн удирдлага</p>
+          </div>
+
+          <nav class="admin-nav">
+            <button class="admin-nav-item active" type="button">Самбар</button>
+            <button class="admin-nav-item" type="button">Шинжилгээ</button>
+            <button class="admin-nav-item" type="button">Хэрэглэгчид</button>
+            <button class="admin-nav-item" type="button">Зарууд</button>
+          </nav>
+
+          <div class="admin-side-actions">
+            <button id="adminToggleNoticeBtn" class="btn btn-primary block" type="button">Зар нэмэх</button>
+            <button id="adminGenerateCommissionBtn" class="btn btn-light block" type="button">Шимтгэлийн тайлан</button>
+            <button id="logoutAdminBtn" class="btn btn-light block" type="button">Гарах</button>
+          </div>
+        </aside>
+
+        <div class="admin-main">
+          <header class="admin-topbar">
+            <div>
+              <h2>Админ удирдлагын самбар</h2>
+              <p>Хэрэглэгч, захиалга, нийлүүлэгчийн мэдээллийг нэг дор хянах</p>
+            </div>
+            <div class="admin-top-meta">
+              <span class="admin-time">Бодит цагийн өгөгдөл</span>
+            </div>
+          </header>
+
+          <section class="admin-kpi-grid">
+            <article class="admin-kpi-card">
+              <span>Нийт хэрэглэгч</span>
+              <strong id="adminStatUsers">0</strong>
+            </article>
+            <article class="admin-kpi-card">
+              <span>Нийт нийлүүлэгч</span>
+              <strong id="adminStatSuppliers">0</strong>
+            </article>
+            <article class="admin-kpi-card">
+              <span>Хүлээгдэж буй баталгаажуулалт</span>
+              <strong id="adminStatPending">0</strong>
+            </article>
+            <article class="admin-kpi-card">
+              <span>Нийт захиалга</span>
+              <strong id="adminStatOrders">0</strong>
+            </article>
+          </section>
+
+          <section class="admin-grid">
+            <article class="panel admin-panel">
+              <div class="panel-head">
+                <h4>Зар мэдээлэл</h4>
+              </div>
+              <form id="adminNoticeForm" class="auth-form compact hidden">
+                <label for="adminNoticeInput">Шинэ зар</label>
+                <input id="adminNoticeInput" type="text" placeholder="Ж: Системийн шинэчлэл 03/30-нд хийгдэнэ">
+                <div class="modal-actions">
+                  <button id="adminSubmitNoticeBtn" class="btn btn-primary" type="submit">Нэмэх</button>
+                </div>
+              </form>
+              <div id="adminNoticeList" class="stack"></div>
+            </article>
+
+            <article class="panel admin-panel">
+              <div class="panel-head">
+                <h4>Захиалгын төлөвийн график</h4>
+              </div>
+              <div id="adminOrderChart" class="chart-bars"></div>
+            </article>
+          </section>
+
+          <section class="admin-grid">
+            <article class="panel admin-panel wide">
+              <div class="panel-head">
+                <h4>Хэрэглэгчдийн жагсаалт</h4>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Байгууллага</th>
+                      <th>Төрөл</th>
+                      <th>Захиалгын тоо</th>
+                      <th>Нийт дүн</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminUserRows"></tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="panel admin-panel">
+              <div class="panel-head">
+                <h4>Нийлүүлэгчдийн борлуулалт</h4>
+              </div>
+              <div id="adminSupplierChart" class="chart-bars"></div>
+            </article>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="profileModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle" aria-hidden="true">
+    <div class="modal-backdrop" data-close-profile></div>
+    <div class="modal-content profile-modal-content">
+      <header class="profile-modal-head">
+        <div>
+          <span class="profile-modal-kicker">Хувийн профайл</span>
+          <h4 id="profileModalTitle">Бүртгэлийн мэдээлэл</h4>
+        </div>
+        <button id="closeProfileBtn" class="btn btn-light" type="button">Хаах</button>
+      </header>
+      <form id="profileForm" class="auth-form compact profile-form">
+        <div class="profile-summary-grid">
+          <article class="profile-summary-card">
+            <span>Эрх</span>
+            <strong id="profileRoleLabel">-</strong>
+          </article>
+          <article class="profile-summary-card">
+            <span>Бүртгэсэн огноо</span>
+            <strong id="profileCreatedAt">-</strong>
+          </article>
+          <article class="profile-summary-card">
+            <span>Бонус үлдэгдэл</span>
+            <strong id="profileRewardPoints">0 ₮</strong>
+          </article>
+          <article class="profile-summary-card">
+            <span>Цуглуулсан бонус</span>
+            <strong id="profileTotalEarnedPoints">0 оноо</strong>
+          </article>
+          <article class="profile-summary-card">
+            <span>Ашигласан бонус</span>
+            <strong id="profileTotalUsedPoints">0 оноо</strong>
+          </article>
+        </div>
+        <div class="field-grid two-col">
+          <div class="field-block">
+            <label for="profileCompanyInput">Байгууллага</label>
+            <input id="profileCompanyInput" type="text" readonly>
+          </div>
+          <div class="field-block">
+            <label for="profileEmailInput">И-мэйл</label>
+            <input id="profileEmailInput" type="email" readonly>
+          </div>
+          <div class="field-block">
+            <label for="profileContactInput">Холбоо барих хүн</label>
+            <input id="profileContactInput" type="text" required>
+          </div>
+          <div class="field-block">
+            <label for="profilePhoneInput">Утас</label>
+            <input id="profilePhoneInput" type="tel" inputmode="numeric" maxlength="8" required>
+          </div>
+          <div class="field-block">
+            <label for="profileAddressInput">Хаяг</label>
+            <input id="profileAddressInput" type="text" required>
+          </div>
+          <div class="field-block">
+            <label for="profileBusinessTypeInput">Бизнесийн төрөл</label>
+            <input id="profileBusinessTypeInput" type="text" required>
+          </div>
+        </div>
+        <div id="profileSupplierFields" class="supplier-register-fields hidden">
+          <div class="supplier-register-head">
+            <h5>Нийлүүлэгчийн төлбөрийн мэдээлэл</h5>
+            <p class="profile-section-note">QPay эсвэл дансны шилжүүлгийн мэдээллээ эндээс шинэчилнэ.</p>
+          </div>
+          <div class="field-grid two-col">
+            <div class="field-block">
+              <label for="profileBankNameInput">Банкны нэр</label>
+              <input id="profileBankNameInput" type="text">
+            </div>
+            <div class="field-block">
+              <label for="profileBankHolderInput">Данс эзэмшигч</label>
+              <input id="profileBankHolderInput" type="text">
+            </div>
+          </div>
+          <div class="field-block">
+            <label for="profileBankAccountInput">Дансны дугаар</label>
+            <input id="profileBankAccountInput" type="text" inputmode="numeric" autocomplete="off">
+            <p class="field-note">Шинэ дугаар оруулбал одоогийн дансны мэдээлэл шинэчлэгдэнэ.</p>
+          </div>
+          <div class="field-block">
+            <label for="profileQPayReceiverInput">QPay хүлээн авагч код</label>
+            <input id="profileQPayReceiverInput" type="text" autocomplete="off">
+            <p class="field-note">Бодит QPay invoice энэ кодыг ашиглана.</p>
+          </div>
+          <label class="supplier-terms-row" for="profileSupplierAgreementInput">
+            <input id="profileSupplierAgreementInput" type="checkbox">
+            <span>Шилжүүлгийн нөхцөл, платформын гэрээг зөвшөөрсөн хэвээр байна.</span>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-light" type="button" data-close-profile>Цуцлах</button>
+          <button class="btn btn-primary" type="submit">Хадгалах</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="addProductModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="addProductTitle" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-content">
+      <header>
+        <h4 id="addProductTitle">Бүтээгдэхүүн нэмэх</h4>
+      </header>
+      <form id="productForm" class="auth-form compact">
+        <label for="productName">Барааны нэр</label>
+        <input id="productName" type="text" required>
+        <label for="productCategory">Ангилал</label>
+        <select id="productCategory" required>
+          <option value="">Сонгох</option>
+        </select>
+        <label for="productPrice">Үнэ (₮)</label>
+        <input id="productPrice" type="number" min="1" required>
+        <label for="productUnit">Нэгж</label>
+        <input id="productUnit" type="text" placeholder="кг, литр, ширхэг" required>
+        <label for="productMinOrder">Мин. захиалга</label>
+        <input id="productMinOrder" type="number" min="1" required>
+        <label for="productStock">Үлдэгдэл</label>
+        <input id="productStock" type="number" min="0" required>
+        <label for="productImage">Зургийн URL</label>
+        <input id="productImage" type="url" placeholder="https://...">
+        <label for="productImageFile">Зураг оруулах (Insert)</label>
+        <input id="productImageFile" type="file" accept="image/*">
+        <p class="field-note">Файл оруулбал URL-ээс давуу хэрэглэгдэнэ. 2MB хүртэл зураг зөвшөөрнө.</p>
+        <div id="productImagePreviewWrap" class="image-preview-wrap hidden" aria-live="polite">
+          <img id="productImagePreview" class="image-preview" alt="Сонгосон зургийн preview">
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-light" type="button" data-close-modal>Цуцлах</button>
+          <button class="btn btn-primary" type="submit">Хадгалах</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="qpayModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="qpayModalTitle" aria-hidden="true">
+    <div class="modal-backdrop" data-close-qpay></div>
+    <div class="modal-content qpay-modal-content">
+      <header class="qpay-modal-head">
+        <h4 id="qpayModalTitle">QPay төлбөр</h4>
+        <button id="qpayCloseBtn" class="btn btn-light" type="button">Хаах</button>
+      </header>
+      <div class="compact qpay-modal-body">
+        <div class="qpay-summary-grid">
+          <article><span>Захиалга</span><strong id="qpayModalOrder">-</strong></article>
+          <article><span>Нийлүүлэгч</span><strong id="qpayModalSupplier">-</strong></article>
+          <article><span>Төлөх дүн</span><strong id="qpayModalAmount">0 ₮</strong></article>
+          <article><span>Invoice</span><strong id="qpayModalInvoice">-</strong></article>
+        </div>
+        <div class="qpay-qr-panel">
+          <img id="qpayQrImage" src="" alt="QPay QR" loading="lazy">
+        </div>
+        <p id="qpayQrText" class="qpay-qr-text"></p>
+        <div class="modal-actions qpay-actions">
+          <a id="qpayPayLink" class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">QPay апп нээх</a>
+          <button id="qpayCheckBtn" class="btn btn-light" type="button">Төлбөр шалгах</button>
+          <button id="qpayMockPayBtn" class="btn btn-light" type="button">Mock төлсөн болгох</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bylnModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="bylnModalTitle" aria-hidden="true">
+    <div class="modal-backdrop" data-close-byln></div>
+    <div class="modal-content qpay-modal-content">
+      <header class="qpay-modal-head">
+        <h4 id="bylnModalTitle">Был.mn QR төлбөр</h4>
+        <button id="bylnCloseBtn" class="btn btn-light" type="button">Хаах</button>
+      </header>
+      <div class="compact qpay-modal-body">
+        <div class="qpay-summary-grid">
+          <article><span>Захиалга</span><strong id="bylnModalOrder">-</strong></article>
+          <article><span>Нийлүүлэгч</span><strong id="bylnModalSupplier">-</strong></article>
+          <article><span>Төлөх дүн</span><strong id="bylnModalAmount">0 ₮</strong></article>
+          <article><span>Invoice</span><strong id="bylnModalInvoice">-</strong></article>
+        </div>
+        <div class="qpay-qr-panel">
+          <img id="bylnQrImage" src="" alt="Был.mn QR" loading="lazy">
+        </div>
+        <p id="bylnQrText" class="qpay-qr-text"></p>
+        <p class="field-note" style="text-align: center; margin-bottom: 12px; color: #666;">*Хэрэв банкны апп уншихгүй бол ухаалаг утасны <b>үндсэн камераар</b> уншуулах эсвэл доорх товчоор шилжиж төлнө үү.</p>
+        <div class="modal-actions qpay-actions">
+          <a id="bylnPayLink" class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer">Было апп нээх</a>
+          <button id="bylnCheckBtn" class="btn btn-light" type="button">Төлбөр шалгах</button>
+          <button id="bylnMockPayBtn" class="btn btn-light" type="button">Mock төлсөн болгох</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  <script src="script.js?v=20260427-admin-login-v86"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

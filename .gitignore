@@ -1,0 +1,7 @@
+﻿node_modules
+.env
+tmp-start-api.err.log
+tmp-start-api.out.log
+
+# Optional local artifacts
+*.tmp
