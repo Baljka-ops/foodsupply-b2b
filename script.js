@@ -33,10 +33,16 @@ function uniqueUrls(values) {
   );
 }
 
+function shouldUseLocalApiFallback() {
+  const protocol = String(window.location.protocol || "").trim().toLowerCase();
+  const hostname = String(window.location.hostname || "").trim().toLowerCase();
+  return protocol === "file:" || hostname === "localhost" || hostname === "127.0.0.1";
+}
+
 function buildApiStateUrls() {
   const urls = [window.B2B_API_URL || `${window.location.origin}/api/state`];
 
-  if (window.location.port !== "5000") {
+  if (shouldUseLocalApiFallback() && window.location.port !== "5000") {
     urls.push("http://localhost:5000/api/state");
   }
 
@@ -65,7 +71,7 @@ function buildApiStateStreamUrls() {
 function buildApiAuthBases() {
   const urls = [window.B2B_AUTH_URL || `${window.location.origin}/api/auth`];
 
-  if (window.location.port !== "5000") {
+  if (shouldUseLocalApiFallback() && window.location.port !== "5000") {
     urls.push("http://localhost:5000/api/auth");
   }
 
@@ -75,7 +81,7 @@ function buildApiAuthBases() {
 function buildApiPaymentBases() {
   const urls = [window.B2B_PAYMENT_URL || `${window.location.origin}/api/payments`];
 
-  if (window.location.port !== "5000") {
+  if (shouldUseLocalApiFallback() && window.location.port !== "5000") {
     urls.push("http://localhost:5000/api/payments");
   }
 
@@ -85,7 +91,7 @@ function buildApiPaymentBases() {
 function buildApiCommissionBases() {
   const urls = [window.B2B_COMMISSION_URL || `${window.location.origin}/api/commissions`];
 
-  if (window.location.port !== "5000") {
+  if (shouldUseLocalApiFallback() && window.location.port !== "5000") {
     urls.push("http://localhost:5000/api/commissions");
   }
 

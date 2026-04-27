@@ -25,6 +25,23 @@ const authRateLimiter = createIpRateLimiter({
   label: "auth",
 });
 
+function isSameHostOrigin(origin, req) {
+  const rawOrigin = String(origin || "").trim();
+  if (!rawOrigin) return true;
+
+  try {
+    const originUrl = new URL(rawOrigin);
+    const requestHost = String(req.get("x-forwarded-host") || req.get("host") || "")
+      .trim()
+      .toLowerCase();
+
+    if (!requestHost) return false;
+    return originUrl.host.toLowerCase() === requestHost;
+  } catch {
+    return false;
+  }
+}
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   "script-src 'self'",
@@ -51,20 +68,19 @@ app.use((_, res, next) => {
   next();
 });
 
-app.use(
-  cors({
-    origin(origin, callback) {
-      if (!origin || allowedOrigins.has(origin)) {
-        callback(null, true);
-        return;
-      }
+app.use((req, res, next) => {
+  cors((request, callback) => {
+    const origin = String(request.get("Origin") || "").trim();
+    if (!origin || allowedOrigins.has(origin) || isSameHostOrigin(origin, request)) {
+      callback(null, { origin: true });
+      return;
+    }
 
-      const err = new Error("CORS origin denied");
-      err.status = 403;
-      callback(err);
-    },
-  })
-);
+    const err = new Error("CORS origin denied");
+    err.status = 403;
+    callback(err);
+  })(req, res, next);
+});
 
 app.use(
   express.json({
